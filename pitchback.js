@@ -16,6 +16,8 @@ if(Meteor.isClient){
     var slides = obj.slides;
     var i = slides.length;
 
+    Session.set('count', i);
+
     presentation.observe({
       changed: function(newdoc){
         Session.set('slide', newdoc.slide);
@@ -98,13 +100,22 @@ if(Meteor.isClient){
       var slide = Session.get('slide');
       var event = Session.get('event');
 
-      Events.update({_id:event}, {$set:{slide:--slide}});
+      if(--slide < 0) return;
+
+      console.log(slide);
+
+      Events.update({_id:event}, {$set:{slide:slide}});
     },
     'click #next' : function(){
       var slide = Session.get('slide');
       var event = Session.get('event');
+      var count = Session.get('count');
 
-      Events.update({_id:event}, {$set:{slide:++slide}});
+      if(++slide > (count-1)) return;
+
+      console.log(slide);
+
+      Events.update({_id:event}, {$set:{slide:slide}});
     }
   });
 
