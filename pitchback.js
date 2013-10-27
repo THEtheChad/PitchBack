@@ -94,8 +94,17 @@ if(Meteor.isClient){
   };
 
   Template.presentation.events({
-    'click' : function(){
+    'click #prev' : function(){
+      var slide = Session.get('slide');
+      var event = Session.get('event');
 
+      Events.update({_id:event}, {$set:{slide:--slide}});
+    },
+    'click #next' : function(){
+      var slide = Session.get('slide');
+      var event = Session.get('event');
+
+      Events.update({_id:event}, {$set:{slide:++slide}});
     }
   });
 
@@ -156,6 +165,20 @@ if(Meteor.isClient){
     });
     console.log(items);
   }
+
+  Meteor.startup(function(){
+    SimplifyCommerce.generateToken({
+      key: "sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx",
+      card: {
+          number: 4111111111111111,
+          cvc: 333,
+          expMonth: 03,
+          expYear: 16
+      }
+    }, function(){
+      console.log(arguments);
+    });
+  })
 }
 
 if(Meteor.isServer){
@@ -187,4 +210,27 @@ if(Meteor.isServer){
   Meteor.publish("events", function(){
     return Events.find();
   });
+
+  // var Simplify = require("simplify-commerce"),
+  //     client = Simplify.getClient({
+  //         publicKey: 'sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx',
+  //         privateKey: 'RplWVgIaZ6lRw6wClDV+uUobFfFG8VKqrazU14zD7XB5YFFQL0ODSXAOkNtXTToq'
+  //     });
+   
+  // client.payment.create({
+  //     amount : "1000",
+  //     token : "[TOKEN ID]",
+  //     description : "payment description",
+  //     reference : "7a6ef6be31",
+  //     currency : "USD"
+  // }, function(errData, data){
+   
+  //     if(errData){
+  //         console.error("Error Message: " + errData.data.error.message);
+  //         // handle the error
+  //         return;
+  //     }
+   
+  //     console.log("Payment Status: " + data.paymentStatus);
+  // });
 }

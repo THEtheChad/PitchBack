@@ -116,6 +116,10 @@ body{
 	width: 100%;
 }
 
+#presentation{
+	position: relative;
+}
+
 .add_vote{
 	background: grey;
 	height: 20px;
@@ -157,13 +161,17 @@ body{
 	border-top: none;
 	padding: 8px;
 }
-/*
-#prev{
-	width: 50px;
+
+#prev,
+#next{
+	position: absolute;
+	width: 100px;
 	height: 100%;
+	top: 0;
+}
+#prev{
+	left: 0;
 }
 #next{
-	width: 50px;
-	height: 100%;
+	right: 0;
 }
-*/
