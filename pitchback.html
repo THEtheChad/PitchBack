@@ -16,6 +16,9 @@
 	{{else}}
 		{{> login}}
 	{{/if}}
+	{{#if addcomment}}
+		{{> add_comment}}
+	{{/if}}
 </template>
 
 <template name="login">
@@ -41,25 +44,29 @@
 			</div>
 			-->
 			<div class="donate">
+				<img class="donate-img" src="images/nav-donate.png">
 				<span>Donate</span>
 			</div>
 		</div>
 	</div>
 </template>
 
+<template name="add_comment">
+	<div class="overlay">
+		<textarea class="comment_input"></textarea>
+	</div>
+</template>
+
 <template name="presentation">
 	<div id="presentation">
 		<div id="prev"></div>
-		<img src="{{slide}}">
+		<img height="284" width="378" src="{{slide}}">
 		<div id="next"></div>
 	</div>
 </template>
 
 <template name="comments">
-	<div class="feedback">
-		<span>Comments</span>
-		<input type="text" class="add_comment">
-	</div>
+	<div class="add-comment">+ Add a Comment</div>
 	<ul class="comments">
 	{{#each comments}}
 		{{> comment}}

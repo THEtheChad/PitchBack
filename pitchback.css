@@ -79,18 +79,33 @@ body{
 	font-size: 1em;
 }
 .donate {
-	background: url(images/nav-donate.png) 1em no-repeat #f6953a !important;
-	background-size: 1.25em;
+/*	background: url(images/nav-donate.png) 1em no-repeat #f6953a !important;
+	background-size: 1.25em;*/
+	background: #f6953a !important;
 	padding-left: 1.75em !important;
 	height: 1em;
+	position: relative;
 }
 #actionCalls div span {
 	padding: 0 1em;
 }
 
+.comment_input{
+	width: 85%;
+	height: 40%;
+	margin: 20px auto;
+	display: block;
+	padding: 10px;
+	color: #333;
+	border: none;
+	opacity: .8;
+}
+
 #presentation{
+	min-height: 284px;
 }
 #presentation img{
+	background: #00ADEE;
 	display: block;
 	margin: 1em auto;
 	width: 94%;
@@ -162,6 +177,21 @@ body{
 	border: 1px solid #ddd;
 	border-top: none;
 	padding: 8px;
+}
+.donate-img{
+	position: absolute;
+	height: 30px;
+	left: 17px;
+	top: 17px;
+}
+
+.add-comment{
+	background: #f6953a;
+	color: #fff;
+	text-align: center;
+	padding: 10px;
+	width: 90%;
+	margin: 0 auto 10px;
 }
 
 #prev,

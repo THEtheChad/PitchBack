@@ -31,9 +31,30 @@ if(Meteor.isClient){
   });
   var users = Meteor.subscribe('users');
 
+//    <input type="text" class="add_comment">
+
   Template.main.loggedin = function(){
     return Session.get('user') ? true : false;
   };
+
+  Template.main.addcomment = function(){
+    return Session.get('add') ? true : false;
+  };
+
+  Template.main.events({
+    'keypress .comment_input' : function(e){
+      if(e.keyCode == 13){
+        var user = Session.get('user');
+        var event = Session.get('event');
+        var slide = Session.get('slide');
+
+        if(e.keyCode == 13){
+          Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id], event: event, slide: slide});
+        }
+        Session.set('add', false);
+      }
+    }
+  });
 
   function loginComplete(){
     var $username = $('#username')
@@ -58,6 +79,12 @@ if(Meteor.isClient){
       };
     }
   }
+
+  Template.add_comment.rendered = function(){
+    $('.comment_input').focus();
+    $('html, body').css({scrollTo:0})
+  };
+
 
   Template.login.events({
     'click #login_user' : function(e){
@@ -124,15 +151,8 @@ if(Meteor.isClient){
   };
 
   Template.comments.events({
-    'keypress input.add_comment' : function(e){
-      var user = Session.get('user');
-      var event = Session.get('event');
-      var slide = Session.get('slide');
-
-      if(e.keyCode == 13){
-        Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id], event: event, slide: slide});
-        e.currentTarget.value = '';
-      }
+    'click .add-comment' : function(e){
+      Session.set('add', true);
     },
     'click .comment .add_vote' : function(e){
       var user = Session.get('user');
