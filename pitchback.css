@@ -145,15 +145,11 @@ body{
 	position: relative;
 }
 
-.add_vote{
-	background: grey;
-	height: 20px;
-	width: 20px;
-}
+.add_vote,
 .remove_vote{
-	background: orange;
-	height: 20px;
-	width: 20px;
+	height: 48px;
+	width: auto;
+	display: block;
 }
 
 .comments, .feedback{
@@ -183,6 +179,11 @@ body{
 }
 .comment__time{
 	font-size: 14px;
+}
+.comment__score{
+	padding: 10px 18px;
+	font-size: 28px;
+	font-weight: bold;
 }
 .comment__feedback{
 	float: right;
