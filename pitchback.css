@@ -1,23 +1,70 @@
-/* CSS declarations go here */
-*{
-	padding: 0;
-	margin: 0;
+/* FONTS */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+/* RESET */
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+/* CSS declarations go here */
+
 html{
-	font-family: Arial;
-	font-size: 14px;
+	font-size: 16px;
 	line-height: 1em;
+	font-family: 'Open Sans', sans-serif;
+	background: #333;
 }
 
 body{
-	background: #eee;
+	background: url(images/bkg_watermark.png) center 10% no-repeat #eee;
+	background-size: 100%;
+	background-attachment: fixed;
+	line-height: 1;
+	max-width: 600px;
 }
 
 #navigation{
 	background: #00adee;
 	color: #fff;
-	padding: 2px 8px;
+	padding: 0.5em 0 0.5em 0.75em;
+}
+#logo img{
+	max-height: 2em;
+	max-width: 100%;
+	min-width: 100px;
+	width: 45%;
 }
 
 #presentation{
@@ -27,6 +74,7 @@ body{
 	margin: 10px auto;
 	width: 96%;
 	height: auto;
+	border: 1px solid #DDD;
 }
 
 .overlay{
@@ -35,7 +83,7 @@ body{
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,.5);
+	background: rgba(0,0,0,0.5);
 }
 
 #login{
@@ -79,6 +127,7 @@ body{
 	float: right;
 }
 .comment__text{
+	background: rgba(245,250,255,0.8);
 	border: 1px solid #ddd;
 	border-top: none;
 	padding: 8px;

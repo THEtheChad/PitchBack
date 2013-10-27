@@ -1,12 +1,33 @@
-Comments = new Meteor.Collection("comments");
-Users = new Meteor.Collection("users");
-Events = new Meteor.Collection("events");
-
-// var listsHandle = Meteor.subscribe('events', function(){
-//   console.log(Events.findOne());
-// });
-
 if(Meteor.isClient){
+
+  var Comments = window.Comments = new Meteor.Collection("comments");
+  var Users = window.Users = new Meteor.Collection("users");
+  var Events = window.Events = new Meteor.Collection("events");
+
+  Deps.autorun(function(){
+    Meteor.subscribe('comments', {event: Session.get('event'), slide: Session.get('slide')});
+  });
+
+  var events = Meteor.subscribe('events', function(){
+    var presentation = Events.find({_id:"gBXf7zzBkxjTXiJeg"});
+    var obj = presentation.fetch()[0];
+    Session.set('event', obj._id);
+    Session.set('slide', obj.slide);
+    var slides = obj.slides;
+    var i = slides.length;
+
+    presentation.observe({
+      changed: function(newdoc){
+        Session.set('slide', newdoc.slide);
+      }
+    });
+
+    while(i--){
+      var img = new Image();
+      img.src = slides[i];
+    }
+  });
+  var users = Meteor.subscribe('users');
 
   Template.main.loggedin = function(){
     return Session.get('user') ? true : false;
@@ -67,17 +88,9 @@ if(Meteor.isClient){
     var evt = Events.findOne();
     var url = 'http://placekitten.com/400/300';
 
-    if(evt){
-      var idx = Session.get('slide');
-      if(idx == null){
-        idx = evt.slide;
-        Session.set('slide', idx);
-      }
+    if(evt) url = evt.slides[evt.slide];
 
-      if(evt) url = evt.slides[idx];
-
-      return url;
-    }
+    return url;
   };
 
   Template.presentation.events({
@@ -93,9 +106,11 @@ if(Meteor.isClient){
   Template.comments.events({
     'keypress input.add_comment' : function(e){
       var user = Session.get('user');
+      var event = Session.get('event');
+      var slide = Session.get('slide');
 
       if(e.keyCode == 13){
-        Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id]});
+        Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id], event: event, slide: slide});
         e.currentTarget.value = '';
       }
     },
@@ -144,16 +159,32 @@ if(Meteor.isClient){
 }
 
 if(Meteor.isServer){
-  Meteor.startup(function(){
-    if(Events.find().count() === 0){
-      Events.insert({
-        name:"ComputeMidwest",
-        slides:[
-          'blah.png'
-        ],
-        slide:0
-      });
-    }
-    // code to run on server at startup
+  var Comments = new Meteor.Collection("comments");
+  var Users = new Meteor.Collection("users");
+  var Events = new Meteor.Collection("events");
+
+  // Meteor.startup(function(){
+  //   if(Events.find().count() === 0){
+  //     Events.insert({
+  //       name:"ComputeMidwest",
+  //       slides:[
+  //         'images/slide0.png',
+  //         'images/slide1.png',
+  //         'images/slide2.png'
+  //       ],
+  //       slide:0
+  //     });
+  //   }
+  //   // code to run on server at startup
+  // });
+
+  Meteor.publish("comments", function(params){
+    return Comments.find({event: params.event, slide: params.slide});
+  });
+  Meteor.publish("users", function(){
+    return Users.find();
+  });
+  Meteor.publish("events", function(){
+    return Events.find();
   });
 }
