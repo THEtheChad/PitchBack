@@ -1,5 +1,13 @@
 if(Meteor.isClient){
 
+  // Meteor.startup(function(){
+  //   document.addEventListener('touchend', function(e){
+  //     e.preventDefault();
+  //     var touch = e.touches[0];
+  //     alert(touch.currentTarget);
+  //   }, false);
+  // });
+
   var Comments = window.Comments = new Meteor.Collection("comments");
   var Users = window.Users = new Meteor.Collection("users");
   var Events = window.Events = new Meteor.Collection("events");
@@ -87,7 +95,7 @@ if(Meteor.isClient){
 
   Template.add_comment.rendered = function(){
     $('.comment_input').focus();
-    $('html, body').css({scrollTo:0})
+    $('html, body').css({scrollTo:0});
   };
 
 
@@ -167,7 +175,9 @@ if(Meteor.isClient){
   };
 
   Template.comments.events({
-    'click .add-comment' : function(e){
+    'click .add_comment' : function(e){
+      e.preventDefault();
+      alert('lsdjfkdjfkj');
       Session.set('add', true);
     },
     'click .comment .add_vote' : function(e){
