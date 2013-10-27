@@ -69,7 +69,11 @@
 <template name="comment">
 	<li class="comment">
 		<div class="comment__details">
-			<div class="comment__user">{{owner_name}}</div>
+			<div class="comment__user">
+				<img class="comment__avatar" src="images/avatar.png">
+				<span class="comment__userName">{{owner_name}}</span>
+				<span class="comment__time">10/23/2013 at 10:20pm</span>
+			</div>
 			<div class="comment__feedback">
 			{{#if own_comment}}
 				<div>{{score}}</div>
