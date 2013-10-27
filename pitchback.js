@@ -9,9 +9,6 @@ Events = new Meteor.Collection("events");
 if(Meteor.isClient){
 
   Template.main.loggedin = function(){
-    if(!Session.get('event')){
-      Session.set('event', Events.findOne());
-    }
     return Session.get('user') ? true : false;
   };
 
@@ -64,6 +61,23 @@ if(Meteor.isClient){
 
   Template.login.alert = function(){
     return Session.get('login_error');
+  };
+
+  Template.presentation.slide = function(){
+    var evt = Events.findOne();
+    var url = 'http://placekitten.com/400/300';
+
+    if(evt){
+      var idx = Session.get('slide');
+      if(idx == null){
+        idx = evt.slide;
+        Session.set('slide', idx);
+      }
+
+      if(evt) url = evt.slides[idx];
+
+      return url;
+    }
   };
 
   Template.presentation.events({
@@ -132,7 +146,13 @@ if(Meteor.isClient){
 if(Meteor.isServer){
   Meteor.startup(function(){
     if(Events.find().count() === 0){
-      Events.insert({name:"ComputeMidwest", slide:0});
+      Events.insert({
+        name:"ComputeMidwest",
+        slides:[
+          'blah.png'
+        ],
+        slide:0
+      });
     }
     // code to run on server at startup
   });
