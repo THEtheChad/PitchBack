@@ -163,20 +163,20 @@ if(Meteor.isServer){
   var Users = new Meteor.Collection("users");
   var Events = new Meteor.Collection("events");
 
-  // Meteor.startup(function(){
-  //   if(Events.find().count() === 0){
-  //     Events.insert({
-  //       name:"ComputeMidwest",
-  //       slides:[
-  //         'images/slide0.png',
-  //         'images/slide1.png',
-  //         'images/slide2.png'
-  //       ],
-  //       slide:0
-  //     });
-  //   }
-  //   // code to run on server at startup
-  // });
+  Meteor.startup(function(){
+    if(Events.find().count() === 0){
+      Events.insert({
+        name:"ComputeMidwest",
+        slides:[
+          'images/slide0.png',
+          'images/slide1.png',
+          'images/slide2.png'
+        ],
+        slide:0
+      });
+    }
+    // code to run on server at startup
+  });
 
   Meteor.publish("comments", function(params){
     return Comments.find({event: params.event, slide: params.slide});
