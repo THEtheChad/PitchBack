@@ -174,13 +174,11 @@ body{
 }
 .comment__details{
 	background: #fff;
-	padding: 8px;
 	border: 1px solid #ddd;
 	overflow: hidden;
 }
 .comment__userName{
-	font-weight: bold;
-	margin-top: 2px;
+	margin-top: 5px;
 	margin-bottom: 5px;
 }
 .comment__time{
