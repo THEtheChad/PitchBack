@@ -188,19 +188,33 @@ body{
 }
 .comment__feedback{
 	float: right;
+	color: #999;
 }
 .comment__text{
 	background: rgba(220, 240, 255, 0.4);
 	border: 1px solid #ddd;
 	border-top: none;
 	padding: 8px;
+	line-height: 150%;
+	color: #666;
+	font-size: 1em;
 }
 .comment__avatar{
 	float: left;
-	width: 40px;
+	width: 48px;
 	height: auto;
 	display: block;
 	margin-right: 10px;
+}
+.comment__userName {
+	font-size: 1.25em;
+	color: #f6953a;
+	margin-bottom: 0.25em;
+}
+.comment__time {
+	font-style: italic;
+	font-size: 0.75em;
+	color: #999;
 }
 .donate-img{
 	position: absolute;
