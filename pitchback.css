@@ -59,13 +59,11 @@ body{
 	background: #00adee;
 	color: #fff;
 	overflow: hidden;
+	max-height: 4em;
 }
 #logo img{
-	padding: 1em 0 1em 0.75em;
-	max-height: 2.1em;
-	max-width: 100%;
-	min-width: 100px;
-	width: 45%;
+	padding: 1.25em 0 1em 0.75em;
+	width: 200px;
 	float: left;
 }
 #actionCalls {
@@ -78,9 +76,13 @@ body{
 	background: #00adee url(images/nav-div.png) left top repeat-y;
 	padding: 1.5em 0;
 	display: inline-block;
+	font-size: 1em;
 }
-#actionCalls div:hover {
-	background: #000;
+.donate {
+	background: url(images/nav-donate.png) 1em no-repeat #f6953a !important;
+	background-size: 1.25em;
+	padding-left: 1.75em !important;
+	height: 1em;
 }
 #actionCalls div span {
 	padding: 0 1em;
