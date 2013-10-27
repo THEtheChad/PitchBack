@@ -17,8 +17,8 @@ if(Meteor.isClient){
   });
 
   var events = Meteor.subscribe('events', function(){
-    var presentation = Events.find({_id:"gBXf7zzBkxjTXiJeg"});
-    var obj = presentation.fetch()[0];
+    var obj = Events.find().fetch()[0];
+    var presentation = Events.find({_id:randomeEvent._id});
     Session.set('event', obj._id);
     Session.set('slide', obj.slide);
     var slides = obj.slides;
@@ -177,7 +177,6 @@ if(Meteor.isClient){
   Template.comments.events({
     'click .add_comment' : function(e){
       e.preventDefault();
-      alert('lsdjfkdjfkj');
       Session.set('add', true);
     },
     'click .comment .add_vote' : function(e){
