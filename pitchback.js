@@ -150,6 +150,17 @@ if(Meteor.isClient){
     return Comments.find({}, {sort: {score: -1, name: 1}});
   };
 
+  Template.login.rendered = function(){
+    var $window = $(window);
+    var height = $window.height();
+    var width = $window.width();
+
+    $('body').css({
+      height: height,
+      width: width
+    });
+  };
+
   Template.comments.events({
     'click .add-comment' : function(e){
       Session.set('add', true);

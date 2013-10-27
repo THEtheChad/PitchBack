@@ -1,5 +1,6 @@
 <head>
   <title>PitchBack | Presentation Insight Capture</title>
+  <meta name="viewport" content="width=400">
   <script type="text/javascript" src="https://www.simplify.com/commerce/v1/simplify.js"></script>
 </head>
 
@@ -77,7 +78,11 @@
 <template name="comment">
 	<li class="comment">
 		<div class="comment__details">
-			<div class="comment__user">{{owner_name}}</div>
+			<div class="comment__user">
+				<img class="comment__avatar" src="images/avatar.png">
+				<div class="comment__userName">{{owner_name}}</div>
+				<div class="comment__time">10/23/2013 at 10:20pm</div>
+			</div>
 			<div class="comment__feedback">
 			{{#if own_comment}}
 				<div>{{score}}</div>

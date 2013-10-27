@@ -44,7 +44,6 @@ html{
 	font-size: 16px;
 	line-height: 1em;
 	font-family: 'Open Sans', sans-serif;
-	background: #333;
 }
 
 body{
@@ -53,6 +52,7 @@ body{
 	background-attachment: fixed;
 	line-height: 1;
 	padding-bottom: 4em;
+	min-height: 400px;
 }
 
 #navigation{
@@ -99,6 +99,7 @@ body{
 	color: #333;
 	border: none;
 	opacity: .8;
+	z-index: 20;
 }
 
 #presentation{
@@ -107,7 +108,7 @@ body{
 #presentation img{
 	background: #00ADEE;
 	display: block;
-	margin: 1em auto;
+	margin: 9px auto;
 	width: 94%;
 	height: auto;
 	border: 1px solid #DDD;
@@ -120,17 +121,24 @@ body{
 	width: 100%;
 	height: 100%;
 	background: rgba(0,0,0,0.5);
+	z-index: 10;
 }
+
 
 #login{
 	padding: 40px 10px;
 	max-width: 200px;
 	margin: 10% auto 0;
 	background: #fff;
+	background: rgba(255,255,255,.9);
 	text-align: center;
 }
 #login input{
-	width: 100%;
+	width: 90%;
+	padding: 8px;
+	color: #333;
+	margin-bottom: 10px;
+	border: 1px solid #eee;
 }
 
 #presentation{
@@ -166,9 +174,6 @@ body{
 	border: 1px solid #ddd;
 	overflow: hidden;
 }
-.comment__user{
-	float: left;
-}
 .comment__feedback{
 	float: right;
 }
@@ -177,6 +182,13 @@ body{
 	border: 1px solid #ddd;
 	border-top: none;
 	padding: 8px;
+}
+.comment__avatar{
+	float: left;
+	width: 40px;
+	height: auto;
+	display: block;
+	margin-right: 10px;
 }
 .donate-img{
 	position: absolute;
@@ -192,6 +204,8 @@ body{
 	padding: 10px;
 	width: 90%;
 	margin: 0 auto 10px;
+	position: relative;
+	z-index: 9;
 }
 
 #prev,
