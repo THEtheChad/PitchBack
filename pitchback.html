@@ -30,7 +30,17 @@
 
 <template name="navigation">
 	<div id="navigation">
-		<h1 id="logo"><img src="images/PitchBack_logo-md.png" alt="PitchBack logo" title="PitchBack logo"></h1>
+		<div id="logo">
+			<img src="images/PitchBack_logo-md.png" alt="PitchBack logo" title="PitchBack logo">
+		</div>
+		<div id="actionCalls">
+			<div class="speakerInfo">
+				<span>Speaker</span>
+			</div>
+			<div class="sendMoney">
+				<span>Donate</span>
+			</div>
+		</div>
 	</div>
 </template>
 
@@ -41,8 +51,10 @@
 </template>
 
 <template name="comments">
-	Comments
-	<input type="text" class="add_comment">
+	<div class="feedback">
+		<span>Comments</span>
+		<input type="text" class="add_comment">
+	</div>
 	<ul class="comments">
 	{{#each comments}}
 		{{> comment}}

@@ -58,21 +58,40 @@ body{
 #navigation{
 	background: #00adee;
 	color: #fff;
-	padding: 0.5em 0 0.5em 0.75em;
+	overflow: hidden;
 }
 #logo img{
-	max-height: 2em;
+	padding: 1em 0 1em 0.75em;
+	max-height: 2.1em;
 	max-width: 100%;
 	min-width: 100px;
 	width: 45%;
+	float: left;
+}
+#actionCalls {
+	float: right;
+}
+#actionCalls div {
+	float: left;
+}
+#actionCalls div {
+	background: #00adee url(images/nav-div.png) left top repeat-y;
+	padding: 1.5em 0;
+	display: inline-block;
+}
+#actionCalls div:hover {
+	background: #000;
+}
+#actionCalls div span {
+	padding: 0 1em;
 }
 
 #presentation{
 }
 #presentation img{
 	display: block;
-	margin: 10px auto;
-	width: 96%;
+	margin: 1em auto;
+	width: 94%;
 	height: auto;
 	border: 1px solid #DDD;
 }
@@ -108,16 +127,22 @@ body{
 	width: 20px;
 }
 
-.comments{
+.comments, .feedback{
 	list-style: none;
+	width: 96%;
+	margin: 0 auto 1em;
+}
+.add_comment {
+	border: 1px solid #ddd;
 }
 .comment{
-	margin: 0 auto 10px;
+	margin: 0 auto 1em;
 	width: 98%;
 }
 .comment__details{
 	background: #fff;
 	padding: 8px;
+	border: 1px solid #ddd;
 	overflow: hidden;
 }
 .comment__user{
@@ -127,7 +152,7 @@ body{
 	float: right;
 }
 .comment__text{
-	background: rgba(245,250,255,0.8);
+	background: rgba(220, 240, 255, 0.4);
 	border: 1px solid #ddd;
 	border-top: none;
 	padding: 8px;
