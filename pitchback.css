@@ -1,0 +1,85 @@
+/* CSS declarations go here */
+*{
+	padding: 0;
+	margin: 0;
+}
+
+html{
+	font-family: Arial;
+	font-size: 14px;
+	line-height: 1em;
+}
+
+body{
+	background: #eee;
+}
+
+#navigation{
+	background: #00adee;
+	color: #fff;
+	padding: 2px 8px;
+}
+
+#presentation{
+}
+#presentation img{
+	display: block;
+	margin: 10px auto;
+	width: 96%;
+	height: auto;
+}
+
+.overlay{
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,.5);
+}
+
+#login{
+	padding: 40px 10px;
+	max-width: 200px;
+	margin: 10% auto 0;
+	background: #fff;
+	text-align: center;
+}
+#login input{
+	width: 100%;
+}
+
+.add_vote{
+	background: grey;
+	height: 20px;
+	width: 20px;
+}
+.remove_vote{
+	background: orange;
+	height: 20px;
+	width: 20px;
+}
+
+.comments{
+	list-style: none;
+}
+.comment{
+	margin: 0 auto 10px;
+	width: 98%;
+}
+.comment__details{
+	background: #fff;
+	padding: 8px;
+	overflow: hidden;
+}
+.comment__user{
+	float: left;
+}
+.comment__feedback{
+	float: right;
+}
+.comment__text{
+	border: 1px solid #ddd;
+	border-top: none;
+	padding: 8px;
+}
