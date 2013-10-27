@@ -168,11 +168,23 @@ body{
 	margin: 0 auto 1em;
 	width: 98%;
 }
+.comment__user{
+	width: 300px;
+	float: left;
+}
 .comment__details{
 	background: #fff;
 	padding: 8px;
 	border: 1px solid #ddd;
 	overflow: hidden;
+}
+.comment__userName{
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 5px;
+}
+.comment__time{
+	font-size: 14px;
 }
 .comment__feedback{
 	float: right;

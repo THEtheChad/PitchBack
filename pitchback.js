@@ -49,7 +49,12 @@ if(Meteor.isClient){
         var slide = Session.get('slide');
 
         if(e.keyCode == 13){
-          Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id], event: event, slide: slide});
+          var date = new Date();
+          var date = date.toString().split(' ').splice(1,4);
+          var time = date.pop();
+          var date = date.join(', ');
+
+          Comments.insert({owner: user._id, text: e.currentTarget.value, score: 1, voters: [user._id], event: event, slide: slide, timestamp: date + ' @ ' + time});
         }
         Session.set('add', false);
       }
@@ -208,19 +213,19 @@ if(Meteor.isClient){
     console.log(items);
   }
 
-  Meteor.startup(function(){
-    SimplifyCommerce.generateToken({
-      key: "sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx",
-      card: {
-          number: 4111111111111111,
-          cvc: 333,
-          expMonth: 03,
-          expYear: 16
-      }
-    }, function(){
-      console.log(arguments);
-    });
-  })
+  // Meteor.startup(function(){
+  //   SimplifyCommerce.generateToken({
+  //     key: "sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx",
+  //     card: {
+  //         number: 4111111111111111,
+  //         cvc: 333,
+  //         expMonth: 03,
+  //         expYear: 16
+  //     }
+  //   }, function(){
+  //     console.log(arguments);
+  //   });
+  // })
 }
 
 if(Meteor.isServer){
