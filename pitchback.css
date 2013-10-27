@@ -52,7 +52,7 @@ body{
 	background-size: 100%;
 	background-attachment: fixed;
 	line-height: 1;
-	max-width: 600px;
+	padding-bottom: 4em;
 }
 
 #navigation{
