@@ -1,16 +1,11 @@
 if(Meteor.isClient){
+  var Comments = new Meteor.Collection("comments");
+  var Users = new Meteor.Collection("users");
+  var Events = new Meteor.Collection("events");
 
-  // Meteor.startup(function(){
-  //   document.addEventListener('touchend', function(e){
-  //     e.preventDefault();
-  //     var touch = e.touches[0];
-  //     alert(touch.currentTarget);
-  //   }, false);
-  // });
-
-  var Comments = window.Comments = new Meteor.Collection("comments");
-  var Users = window.Users = new Meteor.Collection("users");
-  var Events = window.Events = new Meteor.Collection("events");
+  // window.Comments = Comments;
+  // window.Users = Users;
+  // window.Events = Events;
 
   Deps.autorun(function(){
     Meteor.subscribe('comments', {event: Session.get('event'), slide: Session.get('slide')});
@@ -18,9 +13,10 @@ if(Meteor.isClient){
 
   var events = Meteor.subscribe('events', function(){
     var obj = Events.find().fetch()[0];
-    var presentation = Events.find({_id:randomeEvent._id});
+    var presentation = Events.find({_id:obj._id});
     Session.set('event', obj._id);
     Session.set('slide', obj.slide);
+    Session.set('event_owner', obj.owner);
     var slides = obj.slides;
     var i = slides.length;
 
@@ -48,6 +44,29 @@ if(Meteor.isClient){
   Template.main.addcomment = function(){
     return Session.get('add') ? true : false;
   };
+
+  Template.navigation.events({
+    'click .donate, tap .donate' : function(){
+      SimplifyPay.renderPaymentForm({
+        "product_name": "PitchBack",
+        "amount": "10.00",
+        "name_on_card": false,
+        "color": "#f6953a",
+        "background-color": "#444444",
+        "button_text": "Donate",
+        "billing_address": false,
+        "cvc": false,
+        "public_key": "sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx",
+
+        // post url for card token 
+        "action_url": "http://www.rahuldeshpande.net/charge/charge3.php",  
+
+        // extra parameters post together with card token to action_url. 
+        // e.g. CSRF token, 
+        "extra_params": {}
+      });
+    }
+  });
 
   Template.main.events({
     'keypress .comment_input' : function(e){
@@ -115,6 +134,16 @@ if(Meteor.isClient){
       var user = Users.findOne({name:credentials.name});
 
       if(!user){
+        var avatars = [
+          'images/avatar.png',
+          'images/avatar2.png',
+          'images/avatar3.png'
+        ];
+
+        var idx = Math.round(Math.random() * 2);
+
+        credentials.avatar = avatars[idx];
+
         var id = Users.insert(credentials);
         var user = Users.findOne({_id:id});
         if(user) Session.set('user', user);
@@ -136,24 +165,26 @@ if(Meteor.isClient){
   };
 
   Template.presentation.events({
-    'click #prev' : function(){
+    'click #prev, tap #prev' : function(){
+      var user = Session.get('user');
+      if(!Session.equals('event_owner', user._id)) return;
+
       var slide = Session.get('slide');
       var event = Session.get('event');
 
       if(--slide < 0) return;
 
-      console.log(slide);
-
       Events.update({_id:event}, {$set:{slide:slide}});
     },
-    'click #next' : function(){
+    'click #next, tap #next' : function(){
+      var user = Session.get('user');
+      if(!Session.equals('event_owner', user._id)) return;
+
       var slide = Session.get('slide');
       var event = Session.get('event');
       var count = Session.get('count');
 
       if(++slide > (count-1)) return;
-
-      console.log(slide);
 
       Events.update({_id:event}, {$set:{slide:slide}});
     }
@@ -175,15 +206,15 @@ if(Meteor.isClient){
   };
 
   Template.comments.events({
-    'click .add_comment' : function(e){
+    'click .add_comment, tap .add_comment' : function(e){
       e.preventDefault();
       Session.set('add', true);
     },
-    'click .comment .add_vote' : function(e){
+    'click .comment .add_vote, tap .comment .add_vote' : function(e){
       var user = Session.get('user');
       Comments.update({_id:this._id}, {$inc: {score: 1}, $push: {voters: user._id}});
     },
-    'click .comment .remove_vote' : function(e){
+    'click .comment .remove_vote, tap .comment .remove_vote' : function(e){
       var user = Session.get('user');
       if(this.owner === user._id) return;
       Comments.update({_id:this._id}, {$inc: {score: -1}, $pull: {voters: user._id}});
@@ -193,6 +224,11 @@ if(Meteor.isClient){
   Template.comment.owner_name = function(){
     var user = Users.findOne({_id:this.owner});
     return (user && user.name) || "Anonymous";
+  };
+
+  Template.comment.avatar = function(){
+    var user = Users.findOne({_id:this.owner});
+    return (user && user.avatar) || "images/avatar.png";
   };
 
   Template.comment.own_comment = function(){
@@ -232,12 +268,18 @@ if(Meteor.isClient){
   //         expYear: 16
   //     }
   //   }, function(){
-  //     console.log(arguments);
+  //     $.post('')
   //   });
   // })
 }
 
 if(Meteor.isServer){
+  var removeAll = function(collection){
+    collection.find().forEach(function(item){
+      collection.remove({_id:item._id});
+    });
+  }
+
   var Comments = new Meteor.Collection("comments");
   var Users = new Meteor.Collection("users");
   var Events = new Meteor.Collection("events");
@@ -246,10 +288,14 @@ if(Meteor.isServer){
     if(Events.find().count() === 0){
       Events.insert({
         name:"ComputeMidwest",
+        owner: "GG75FY3MS8sujMpqB",
         slides:[
           'images/slide0.png',
           'images/slide1.png',
-          'images/slide2.png'
+          'images/slide2.png',
+          'images/slide3.png',
+          'images/slide4.png',
+          'images/slide5.png'
         ],
         slide:0
       });
@@ -267,7 +313,8 @@ if(Meteor.isServer){
     return Events.find();
   });
 
-  // var Simplify = require("simplify-commerce"),
+
+  // var Simplify = Npm.require("simplify-commerce"),
   //     client = Simplify.getClient({
   //         publicKey: 'sbpb_ZTAxZThlZGQtYTNkNC00ZjhhLTlkNzUtMGFhODQ3MDM4ODcx',
   //         privateKey: 'RplWVgIaZ6lRw6wClDV+uUobFfFG8VKqrazU14zD7XB5YFFQL0ODSXAOkNtXTToq'
@@ -275,6 +322,34 @@ if(Meteor.isServer){
    
   // client.payment.create({
   //     amount : "1000",
+  //     description : "payment description",
+  //     card : {
+  //        expMonth : "11",
+  //        expYear : "19",
+  //        cvc : "123",
+  //        number : "5555555555554444"
+  //     },
+  //     reference : "",
+  //     currency : "USD"
+  // }, function(errData, data){
+   
+  //     if(errData){
+  //         console.error("Error Message: " + errData.data.error.message);
+  //         // handle the error
+  //         return;
+  //     }
+   
+  //     console.log("Payment Status: " + data.paymentStatus);
+  // });
+
+  // var Simplify = require("simplify-commerce"),
+  //     client = Simplify.getClient({
+
+  //     });
+   
+  // client.payment.create({
+  //     amount : "1000",
+
   //     token : "[TOKEN ID]",
   //     description : "payment description",
   //     reference : "7a6ef6be31",

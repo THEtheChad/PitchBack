@@ -2,6 +2,7 @@
   <title>PitchBack | Presentation Insight Capture</title>
   <meta name="viewport" content="width=400">
   <script type="text/javascript" src="https://www.simplify.com/commerce/v1/simplify.js"></script>
+	<script type="text/javascript" src="https://www.simplify.com/commerce/v1/simplify.pay.js"></script>
 </head>
 
 <body>
@@ -79,7 +80,7 @@
 	<li class="comment">
 		<div class="comment__details">
 			<div class="comment__user">
-				<img class="comment__avatar" src="images/avatar.png">
+				<img class="comment__avatar" src="{{avatar}}">
 				<div class="comment__userName">{{owner_name}}</div>
 				<div class="comment__time">{{timestamp}}</div>
 			</div>
@@ -87,9 +88,9 @@
 			{{#if own_comment}}
 				<div class="comment__score">{{score}} Votes</div>
 			{{else}}{{#if voted}}
-				<img class="add_vote" src="images/upVote-highlight.png">
+				<img class="remove_vote" src="images/upVote-highlight.png">
 			{{else}}
-				<img class="remove_vote" src="images/upVote-vote.png">
+				<img class="add_vote" src="images/upVote-vote.png">
 			{{/if}}{{/if}}
 			</div>
 		</div>
