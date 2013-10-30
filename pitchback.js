@@ -166,8 +166,8 @@ if(Meteor.isClient){
 
   Template.presentation.events({
     'click #prev, tap #prev' : function(){
-      var user = Session.get('user');
-      if(!Session.equals('event_owner', user._id)) return;
+      // var user = Session.get('user');
+      // if(!Session.equals('event_owner', user._id)) return;
 
       var slide = Session.get('slide');
       var event = Session.get('event');
@@ -177,8 +177,8 @@ if(Meteor.isClient){
       Events.update({_id:event}, {$set:{slide:slide}});
     },
     'click #next, tap #next' : function(){
-      var user = Session.get('user');
-      if(!Session.equals('event_owner', user._id)) return;
+      // var user = Session.get('user');
+      // if(!Session.equals('event_owner', user._id)) return;
 
       var slide = Session.get('slide');
       var event = Session.get('event');
